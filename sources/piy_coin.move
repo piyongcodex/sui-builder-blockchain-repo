@@ -1,18 +1,19 @@
 /// Create a simple coin with icon.
-module my_coin::my_coin {
+#[allow(deprecated_usage)]
+module piy_coin::piy_coin {
     use sui::coin::{Self, TreasuryCap};
     use sui::tx_context::{sender, TxContext};
     use sui::transfer;
     use std::option;
-    use sui::url::{Self, Url};
+    use sui::url::{Self};
 
     /// OTW and the type for the Token.
-    struct MY_COIN has drop {}
+    struct PIY_COIN has drop {}
 
     // Most of the magic happens in the initializer for the demonstration
     // purposes; however half of what's happening here could be implemented as
     // a single / set of PTBs.
-    fun init(otw: MY_COIN, ctx: &mut TxContext) {
+    fun init(otw: PIY_COIN, ctx: &mut TxContext) {
         let treasury_cap = create_currency(otw, ctx);
         transfer::public_transfer(treasury_cap, sender(ctx));
     }
@@ -39,8 +40,8 @@ module my_coin::my_coin {
     }
 
     /// Mint `amount` of `Coin` and send it to `recipient`.
-    public entry fun mint(
-        c: &mut TreasuryCap<MY_COIN>, 
+    public fun mint(
+        c: &mut TreasuryCap<PIY_COIN>, 
         amount: u64, 
         recipient: address, 
         ctx: &mut TxContext
@@ -50,14 +51,14 @@ module my_coin::my_coin {
 
     #[test_only]
     public fun init_for_test(ctx: &mut TxContext) {
-        init(MY_COIN{}, ctx);
+        init(PIY_COIN{}, ctx);
     }
 }
 
 #[test_only]
 /// Implements tests for most common scenarios for the coin example.
-module my_coin::my_coin_tests {
-    use my_coin::my_coin::{MY_COIN, init_for_test};
+module piy_coin::my_coin_tests {
+    use piy_coin::piy_coin::{PIY_COIN, init_for_test};
     use sui::coin::{Self, TreasuryCap};
     use sui::test_scenario as ts;
 
@@ -75,8 +76,8 @@ module my_coin::my_coin_tests {
         // mint
         ts::next_tx(&mut scenario, addr1);
         {
-            let tc = ts::take_from_sender<TreasuryCap<MY_COIN>>(&scenario);
-            coin::mint_and_transfer<MY_COIN>(&mut tc, 10000000000, addr2, ts::ctx(&mut scenario));
+            let tc = ts::take_from_sender<TreasuryCap<PIY_COIN>>(&scenario);
+            coin::mint_and_transfer<PIY_COIN>(&mut tc, 10000000000, addr2, ts::ctx(&mut scenario));
             ts::return_to_sender(&scenario, tc);
         };
 
