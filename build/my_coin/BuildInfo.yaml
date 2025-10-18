@@ -7,13 +7,13 @@ compiled_package_info:
     sui: "0000000000000000000000000000000000000000000000000000000000000002"
   source_digest: 8D1DD0FC496245CC52440C90CBABE2641D0B06D3D789B70A1EE1105C0D11E069
   build_flags:
-    dev_mode: true
-    test_mode: true
+    dev_mode: false
+    test_mode: false
     generate_docs: false
     save_disassembly: false
     install_dir: ~
     force_recompilation: false
-    lock_file: ~
+    lock_file: "./Move.lock"
     fetch_deps_only: false
     skip_fetch_latest_git_deps: false
     default_flavor: sui
